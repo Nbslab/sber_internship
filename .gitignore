@@ -231,3 +231,4 @@ cython_debug/
 *.zip
 *.pdf
 test.py
+catboost_info/
