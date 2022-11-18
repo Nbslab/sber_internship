@@ -103,17 +103,13 @@ def fill_recs(recs: list, basket_list: list, absent_list: list) -> list:
 def let_from_basket(recs: list, n_items: int, basket: list, absent_list: list) -> list:
     post_recs = get_edges_recs(basket)
     absent_local = absent_list[:]
-    #print('Уже в реках:', recs)
     for value in recs:
         if value[0] not in absent_local:
             absent_local.append(value[0])
-    #print('Новый абсент', absent_local)
     post_recs_absent = recs_absent_filter(post_recs, absent_local)
     post_recs_absent = sorted(post_recs_absent, key=lambda x: int(x[1]), reverse=True)
     if len(post_recs_absent) >= n_items:
-        #print('Потенциальные филлеры', post_recs_absent)
         result_fillers = post_recs_absent[:n_items]
-        #print('Уйдет в филлеры:', result_fillers)
         return result_fillers
     else:
         savers_list = []
@@ -145,11 +141,6 @@ def initiate_recs(baskets: list, absent_list: list) -> dict:
     return result
 
 
-# test_basket = []
-# test_recs = [[1, 100]]  # , [10, 330], [3, 1000]
-# print(fill_recs(test_recs, [3, 8], absent))
-# get_freqs_recs_list(test_recs, 3)
-
 if __name__ == '__main__':
     random.seed(444)
     absent = get_absent()
@@ -159,7 +150,7 @@ if __name__ == '__main__':
         baskets.append(get_basket())
     result_recs = initiate_recs(baskets, absent)
     print('absent', '\n', absent, '\n', '-' * 25)
-    print('basket\t:\trecs', )
+    print('basket : recs', )
     for i in result_recs:
         tmp_list = []
         for value in result_recs[i][1]:

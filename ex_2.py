@@ -50,8 +50,3 @@ def parse_ques(q1: SimpleQueue, q2: SimpleQueue):
         else:
             print(q1.get_first())
             q1.dequeue()
-
-
-q = SimpleQueue('AB')
-q_scnd = SimpleQueue('BB')
-parse_ques(q, q_scnd)

@@ -1,12 +1,24 @@
 def get_shape():
+    '''
+    Функция получения пользовательского инпута с размерностью матрицы
+
+    input: ввод с клавиатуры в окно ввода/строку консоли в формате: int, int
+    output: размер матрицы в виде кортежа: (int, int)
+    '''
     i, j = input('Введите размерность матрицы(в формате: i,j): ').split(',')
     return int(i), int(j)
 
 
 def get_matrix(i: int, j: int) -> list:
+    '''
+    Функция получения пользовательского инпута с строками матрицы
+
+    input: ввод построчно с клавиатуры в окно ввода/строку консоли в формате: int, int, int
+    output: list, хранящий полученную матрицу построчно во вложенных list
+    '''
     matrix_list = []
     while len(matrix_list) < i:
-        sample_tmp = input().split(',')
+        sample_tmp = input('Введите строку матрицы(в формате: x,y,z): ').split(',')
         sample_tmp = list(map(int, sample_tmp))
         if len(sample_tmp) != j:
             print(
@@ -16,16 +28,35 @@ def get_matrix(i: int, j: int) -> list:
     return matrix_list
 
 
-def return_matrix_minor(mat, i, j):
+def return_matrix_minor(mat: list, i: int, j: int):
+    '''
+    Функция для расчета миноров матрицы
+
+    input: list с матрицей, int кол-во строк, int кол-во столбцов
+    output: list с минором матрицы
+    '''
     return [row[:j] + row[j + 1:] for row in (mat[:i] + mat[i + 1:])]
 
 
 def return_transpose(matrix_tmp: list):
+    '''
+    Функци рассчета транспонированной матрицы
+
+    input: list, хранящий матрицу
+    output: list с транспонированной матрицей
+
+    '''
     return [[matrix_tmp[j][i] for j in range(len(matrix_tmp))] for i in
             range(len(matrix_tmp[0]))]
 
 
 def get_determinant(matrix_tmp: list) -> int:
+    '''
+    Рассчет детерминанта матрицы
+
+    input: list, хранящий матрицу
+    output: int, значение детерминанта
+    '''
     row = len(matrix_tmp)
     col = len(matrix_tmp[0])
     result = 0
@@ -51,6 +82,12 @@ def get_determinant(matrix_tmp: list) -> int:
 
 
 def get_reverse(matrix_tmp: list, det: int, i: int, j: int):
+    '''
+    Функция для расчета обратной матрицы
+
+    input: list c матрицей, int со значением детерминанта, int кол-во строк, int кол-во столбцов
+
+    '''
     if i == 2:
         return [[matrix_tmp[1][1] / det, -1 * matrix_tmp[0][1] / det],
                 [-1 * matrix_tmp[1][0] / det, matrix_tmp[0][0] / det]]
@@ -78,6 +115,7 @@ if __name__ == "__main__":
             print("Can't find reverse matrix: determinant = 0")
         else:
             reversed_matrix = get_reverse(matrix, determinant, i_shape, j_shape)
+            print('Обратная матрица')
             for value in reversed_matrix:
                 print(*value)
     else:
